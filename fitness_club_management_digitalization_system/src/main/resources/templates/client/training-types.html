@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Виды тренировок</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/trainings.css" th:href="@{/css/trainings.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/client}">
+	<div th:replace="~{fragments/client-header :: client-header('types')}"></div>
+
+	<main class="container">
+		<h1 class="page-title">Виды тренировок и активностей</h1>
+
+		<section class="card toolbar" aria-label="Поиск и фильтрация">
+			<div class="toolbar-grid">
+				<div class="tool">
+					<label for="q">Название тренировки</label>
+					<input id="q" class="field" type="search" placeholder="Например: йога, сайкл, функциональный…" />
+				</div>
+				<div class="tool">
+					<label for="type">Тип</label>
+					<select id="type" class="field">
+						<option value="">Все</option>
+						<option value="групповая тренировка">Групповая тренировка</option>
+						<option value="персональная тренировка">Персональная тренировка</option>
+						<option value="доступ в зону">Доступ в зону</option>
+						<option value="дополнительная услуга">Дополнительная услуга</option>
+					</select>
+				</div>
+				<div class="tool">
+					<label for="zone">Зона</label>
+					<select id="zone" class="field">
+						<option value="">Все</option>
+						<option value="Mind & Body">Mind & Body</option>
+						<option value="Functional">Functional</option>
+						<option value="Cycle">Cycle</option>
+						<option value="Gym">Тренажёрный зал</option>
+					</select>
+				</div>
+				<div class="tool tool-actions">
+					<button id="btn-find" class="btn btn-primary" type="button">Найти</button>
+					<button id="btn-clear" class="btn btn-secondary" type="button">Очистить</button>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Каталог</h2>
+			<div id="grid" class="grid"></div>
+			<div id="empty" class="empty card" hidden>
+				<h3>Ничего не найдено</h3>
+				<p class="muted">Измените параметры поиска или сбросьте фильтры.</p>
+			</div>
+		</section>
+	</main>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<script src="/js/trainings.js" th:src="@{/js/trainings.js}"></script>
+</body>
+
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Абонементы и услуги</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+<body th:attr="data-api-base=@{/api/client}">
+	<div th:replace="~{fragments/client-header :: client-header('memberships')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Абонементы и услуги</h1>
+
+		<section class="card" style="padding: 20px; margin-bottom: 24px;">
+			<div class="section-title" style="margin: 0 0 10px;">Текущий абонемент</div>
+
+			<div class="admin-table-wrap" style="margin-bottom: 18px;">
+				<table class="admin-table" aria-label="Текущий абонемент">
+					<thead>
+						<tr>
+							<th>Название абонемента</th>
+							<th>Оставшиеся дни заморозки</th>
+							<th>Оставшиеся гостевые визиты</th>
+							<th>Начало действия</th>
+							<th>Окончание</th>
+							<th>Статус</th>
+						</tr>
+					</thead>
+					<tbody id="membership-info-tbody"></tbody>
+				</table>
+			</div>
+			<div class="admin-actions" style="justify-content:flex-end;">
+				<button id="btn-membership-details" type="button" class="admin-btn primary">Подробнее</button>
+			</div>
+		</section>
+
+		<section class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Активные купленные разовые услуги</div>
+
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Разовые услуги и правила">
+					<thead>
+						<tr>
+							<th>Услуга</th>
+							<th>Включено посещений</th>
+							<th>Остаток</th>
+							<th>Макс. в неделю</th>
+							<th>Дни недели</th>
+							<th>Время с</th>
+							<th>Время по</th>
+						</tr>
+					</thead>
+					<tbody id="service-purchases-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<div id="membership-rules-modal-root" class="admin-modal-overlay" hidden aria-hidden="true">
+		<div class="admin-modal-backdrop" data-membership-rules-dismiss="1" aria-hidden="true"></div>
+		<div class="admin-modal-stack">
+			<div class="admin-modal admin-modal--wide" role="dialog" aria-labelledby="membership-rules-modal-title">
+				<div class="admin-modal-header">
+					<h2 id="membership-rules-modal-title" class="admin-modal-title">Услуги по абонементу и правила пользования</h2>
+					<button type="button" class="admin-modal-close" data-membership-rules-dismiss="1" aria-label="Закрыть">×</button>
+				</div>
+				<div class="admin-table-wrap">
+					<table class="admin-table" aria-label="Услуги и правила">
+						<thead>
+							<tr>
+								<th>Услуга</th>
+								<th>Включено посещений</th>
+								<th>Остаток</th>
+								<th>Макс. в неделю</th>
+								<th>Дни недели</th>
+								<th>Время с</th>
+								<th>Время по</th>
+							</tr>
+						</thead>
+						<tbody id="membership-services-tbody"></tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/client-memberships.js" th:src="@{/js/client-memberships.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

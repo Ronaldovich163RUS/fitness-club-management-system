@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Регистрация</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="/css/registration.css" th:href="@{/css/registration.css}">
+</head>
+
+<body>
+	<div th:replace="~{fragments/default-header :: default-header('register')}"></div>
+
+	<main class="container auth-container">
+		<div class="auth-card card" aria-label="Форма регистрации клиента">
+			<h1 class="page-title">Регистрация</h1>
+
+			<form id="registrationForm" class="auth-form" action="/register" method="post" novalidate>
+				<div class="auth-error-slot">
+					<div id="registrationFormError" class="admin-alert admin-alert--error" role="alert"></div>
+				</div>
+				<div class="form-group">
+					<label for="phone">Телефон</label>
+					<input id="phone" class="field" type="tel" name="phone" required minlength="10" maxlength="20"
+						pattern="^[0-9+\\- ()]{10,20}$" autocomplete="tel" placeholder="+7 (___) ___-__-__" />
+				</div>
+
+				<div class="form-row">
+					<div class="form-group">
+						<label for="last-name">Фамилия</label>
+						<input type="text" id="last-name" class="field" name="lastName" required minlength="2" maxlength="50"
+							autocomplete="family-name" placeholder="Введите фамилию" />
+					</div>
+					<div class="form-group">
+						<label for="first-name">Имя</label>
+						<input type="text" id="first-name" class="field" name="firstName" required minlength="2" maxlength="50"
+							autocomplete="given-name" placeholder="Введите имя" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="middle-name">Отчество</label>
+					<input type="text" id="middle-name" class="field" name="middleName" minlength="2" maxlength="50"
+						autocomplete="additional-name" placeholder="Введите отчество (необязательно)" />
+				</div>
+
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" id="email" class="field" name="email" required autocomplete="email" placeholder="Введите email" />
+				</div>
+
+				<div class="form-group">
+					<label for="birthdate">Дата рождения</label>
+					<input type="date" id="birthdate" class="field" name="birthDate" required autocomplete="bday" min="1900-01-01" />
+				</div>
+
+				<div class="form-group">
+					<label for="gender">Пол</label>
+					<select id="gender" class="field" name="gender" required>
+						<option value="">Выберите пол</option>
+						<option value="Мужской">Мужской</option>
+						<option value="Женский">Женский</option>
+					</select>
+				</div>
+
+				<div class="form-group">
+					<label for="password">Пароль</label>
+					<input type="password" id="password" class="field" name="password" required minlength="8" autocomplete="new-password"
+						placeholder="Введите пароль" />
+				</div>
+
+				<div class="form-group">
+					<label for="confirm-password">Подтвердите пароль</label>
+					<input type="password" id="confirm-password" class="field" name="confirmPassword" required minlength="8"
+						autocomplete="new-password" placeholder="Повторите пароль" />
+				</div>
+
+				<button type="submit" id="registration" class="btn auth-btn">Зарегистрироваться</button>
+
+				<div class="auth-links">
+					<a th:href="@{/login}" href="/login">Уже есть аккаунт? Войти</a>
+				</div>
+			</form>
+		</div>
+	</main>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<script src="/js/registration.js" th:src="@{/js/registration.js}"></script>
+</body>
+
+</html>
+

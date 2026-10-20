@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Клиент — тренировочные планы</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+<body th:attr="data-api-base=@{/api/client}">
+	<div th:replace="~{fragments/client-header :: client-header('training-plans')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Тренировочные планы</h1>
+
+		<section class="card" style="padding: 20px;">
+			<div id="plans-container">
+				<!-- Заполняется скриптом -->
+			</div>
+		</section>
+	</main>
+
+	<script src="/js/client-training-plans-api.js" th:src="@{/js/client-training-plans-api.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

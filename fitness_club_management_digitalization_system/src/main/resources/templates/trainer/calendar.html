@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Тренер — личный календарь</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/trainer-header :: trainer-header('calendar')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Личный календарь тренировок</h1>
+
+		<section class="card" style="padding: 20px;">
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Календарь тренера">
+					<thead>
+						<tr>
+							<th>Дата/время</th>
+							<th>Услуга</th>
+							<th>Тип</th>
+							<th>Зал</th>
+							<th>Действие</th>
+						</tr>
+					</thead>
+					<tbody id="trainer-calendar-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/client-data.js" th:src="@{/js/client-data.js}"></script>
+	<script src="/js/trainer-calendar.js" th:src="@{/js/trainer-calendar.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

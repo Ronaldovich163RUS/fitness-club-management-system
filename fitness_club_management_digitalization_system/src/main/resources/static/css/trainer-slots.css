@@ -1,0 +1,25 @@
+/* Карточка формы: без искусственной высоты, одинаковые отступы сверху/снизу */
+.trainer-slots-filter-card {
+	padding: 16px 20px;
+	margin-bottom: 20px;
+}
+
+.trainer-slots-slot-form {
+	margin: 0;
+}
+
+.trainer-slots-form-actions {
+	grid-column: 1 / -1;
+	display: flex;
+	justify-content: flex-end;
+	margin-top: 8px;
+}
+
+/* Таблица: не растягивать пустоту под строками */
+.trainer-slots-table-card {
+	padding: 16px 20px 18px;
+}
+
+.trainer-slots-table-wrap {
+	min-height: 0;
+}

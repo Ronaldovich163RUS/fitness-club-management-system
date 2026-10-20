@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Админ: расписание групповых занятий</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/admin}">
+	<div th:replace="~{fragments/admin-header :: admin-header('schedule')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Расписание групповых занятий</h1>
+
+		<div class="card admin-toolbar" aria-label="Поиск по расписанию">
+			<div class="admin-field">
+				<label for="q-date">Дата</label>
+				<input id="q-date" class="field" type="date" />
+			</div>
+			<div class="admin-field">
+				<label for="q-service">Групповая тренировка</label>
+				<select id="q-service" class="field">
+					<option value="">Все</option>
+				</select>
+			</div>
+			<div class="admin-field">
+				<label for="q-trainer">Тренер</label>
+				<select id="q-trainer" class="field">
+					<option value="">Все</option>
+				</select>
+			</div>
+			<div class="admin-field">
+				<label for="q-hall">Зал</label>
+				<select id="q-hall" class="field">
+					<option value="">Все</option>
+				</select>
+			</div>
+			<div class="admin-actions">
+				<button id="btn-search" type="button" class="admin-btn primary">Найти</button>
+				<button id="btn-clear-search" type="button" class="admin-btn secondary">Сбросить</button>
+			</div>
+		</div>
+
+		<div class="admin-table-wrap card" style="padding: 14px;">
+			<table class="admin-table" aria-label="Расписание">
+				<thead>
+					<tr>
+						<th>Тренировка</th>
+						<th>Тренер</th>
+						<th>Зал</th>
+						<th>Начало</th>
+						<th>Конец</th>
+						<th>Макс. участников</th>
+						<th>Отменено</th>
+						<th>Действия</th>
+					</tr>
+				</thead>
+				<tbody id="schedule-tbody"></tbody>
+			</table>
+		</div>
+
+		<div class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Добавление и редактирование занятия</div>
+			<form id="scheduleForm" novalidate>
+				<input type="hidden" id="schedule_id" />
+				<input type="hidden" id="schedule_current_participants" value="0" />
+				<div class="admin-form-grid">
+					<div>
+						<label for="schedule_service_id" style="display:block;margin-bottom:8px;font-weight:900;">Групповая тренировка</label>
+						<select id="schedule_service_id" class="field" required></select>
+					</div>
+					<div>
+						<label for="schedule_trainer_id" style="display:block;margin-bottom:8px;font-weight:900;">Тренер</label>
+						<select id="schedule_trainer_id" class="field" required></select>
+					</div>
+					<div>
+						<label for="schedule_hall_id" style="display:block;margin-bottom:8px;font-weight:900;">Зал</label>
+						<select id="schedule_hall_id" class="field" required></select>
+					</div>
+					<div>
+						<label for="schedule_date" style="display:block;margin-bottom:8px;font-weight:900;">Дата</label>
+						<input id="schedule_date" class="field" type="date" required />
+					</div>
+					<div>
+						<label for="schedule_time_start" style="display:block;margin-bottom:8px;font-weight:900;">Время начала</label>
+						<input id="schedule_time_start" class="field" type="time" required min="06:00" max="22:00" />
+					</div>
+					<div>
+						<label for="schedule_duration" style="display:block;margin-bottom:8px;font-weight:900;">Длительность, мин</label>
+						<input id="schedule_duration" class="field" type="number" required min="1" max="240" value="60" />
+					</div>
+					<div>
+						<label for="schedule_max_participants" style="display:block;margin-bottom:8px;font-weight:900;">Макс. число участников</label>
+						<input id="schedule_max_participants" class="field" type="number" required min="1" value="20" />
+					</div>
+					<div id="schedule-cancelled-row">
+						<label for="schedule_is_cancelled" style="display:block;margin-bottom:8px;font-weight:900;">Отменено</label>
+						<select id="schedule_is_cancelled" class="field">
+							<option value="false">Нет</option>
+							<option value="true">Да</option>
+						</select>
+					</div>
+				</div>
+				<div class="admin-actions" style="margin-top: 14px;">
+					<button id="btn-save-schedule" type="submit" class="admin-btn primary">Сохранить</button>
+					<button id="btn-reset-schedule" type="button" class="admin-btn secondary">Очистить форму</button>
+				</div>
+			</form>
+		</div>
+
+		<section class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Нагрузка тренеров</div>
+			<div class="admin-field" style="margin-bottom: 14px;">
+				<label for="workload-trainer">Тренер</label>
+				<select id="workload-trainer" class="field">
+					<option value="">Выберите тренера</option>
+				</select>
+			</div>
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Нагрузка тренера">
+					<thead>
+						<tr>
+							<th>Дата</th>
+							<th>Тренировка</th>
+							<th>Тип</th>
+							<th>Зал</th>
+							<th>Время</th>
+							<th>Участники</th>
+							<th>Отменено</th>
+						</tr>
+					</thead>
+					<tbody id="workload-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/admin-schedule.js" th:src="@{/js/admin-schedule.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

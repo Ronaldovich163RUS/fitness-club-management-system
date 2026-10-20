@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Абонементы и услуги</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/offers.css" th:href="@{/css/offers.css}">
+</head>
+
+<body data-api-base="/api/public">
+	<div th:replace="~{fragments/default-header :: default-header('offers')}"></div>
+
+	<main class="container">
+		<h1 class="page-title">Абонементы и услуги</h1>
+
+		<section class="switch card" aria-label="Переключатель вкладок">
+			<div class="switch-inner">
+				<button id="tab-memberships" class="tab active" type="button">Абонементы</button>
+				<button id="tab-services" class="tab" type="button">Разовые услуги</button>
+			</div>
+		</section>
+
+		<section id="memberships">
+			<h2 class="section-title">Абонементы</h2>
+			<div class="grid" id="membership-grid"></div>
+		</section>
+
+		<section id="services" hidden>
+			<h2 class="section-title">Разовые услуги</h2>
+			<div class="grid" id="service-grid"></div>
+		</section>
+	</main>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<script src="/js/offers.js" th:src="@{/js/offers.js}"></script>
+</body>
+
+</html>
+

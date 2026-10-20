@@ -1,0 +1,242 @@
+.filters {
+	padding: 16px;
+	margin: 12px 0 18px;
+}
+
+.filters-grid {
+	display: grid;
+	grid-template-columns: repeat(5, minmax(120px, 1fr)) minmax(280px, 1.35fr);
+	gap: 12px;
+	align-items: end;
+	min-width: 0;
+}
+
+.filter {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+}
+
+.filter-actions {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(120px, 1fr));
+	gap: 8px;
+	min-width: 0;
+}
+
+.filter-actions .btn {
+	min-width: 0;
+	width: 100%;
+	white-space: nowrap;
+}
+
+.week-controls {
+	margin: 8px 0 10px;
+	padding: 8px 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+}
+
+.week-range {
+	font-weight: 800;
+	min-width: 260px;
+	text-align: center;
+	flex: 1;
+}
+
+.icon-arrow-btn {
+	width: 38px;
+	height: 38px;
+	border-radius: 999px;
+	border: 1px solid var(--border);
+	background: #fff;
+	color: var(--text);
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.icon-arrow-btn svg {
+	width: 20px;
+	height: 20px;
+	stroke: currentColor;
+	stroke-width: 2.2;
+	fill: none;
+}
+
+.icon-arrow-btn:hover {
+	background: var(--bg);
+}
+
+/* Таблица расписания */
+.schedule-table-wrap {
+	overflow: auto;
+	width: 100%;
+	padding: 0;
+	margin-bottom: 12px;
+	border-radius: 16px;
+	/* Видимая область: до строки 14:00 включительно */
+	max-height: 520px;
+	scrollbar-gutter: stable;
+	background: transparent;
+	border: none;
+	box-shadow: none;
+}
+
+.schedule-table {
+	width: 100%;
+	min-width: 0;
+	table-layout: fixed;
+	border-collapse: collapse;
+	font-size: 0.95rem;
+}
+
+.schedule-table th,
+.schedule-table td {
+	padding: 14px 16px;
+	text-align: left;
+	border-bottom: 1px solid var(--border);
+	border-right: 1px solid var(--border);
+}
+
+.schedule-table th:first-child,
+.schedule-table td:first-child {
+	border-left: 1px solid var(--border);
+}
+
+.schedule-table thead th {
+	background: var(--brand);
+	color: #fff;
+	font-weight: 800;
+	white-space: nowrap;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+
+.schedule-table thead th:first-child {
+	border-radius: 16px 0 0 0;
+}
+
+.schedule-table thead th:last-child {
+	border-radius: 0 16px 0 0;
+}
+
+.schedule-table tbody tr {
+	background: var(--surface);
+	transition: background-color 0.15s ease;
+}
+
+.schedule-table tbody tr:hover {
+	background: var(--bg);
+}
+
+.schedule-table tbody tr:last-child td {
+	border-bottom: none;
+}
+
+.schedule-table .workout-name {
+	font-weight: 900;
+	display: block;
+}
+
+.time-header {
+	min-width: 132px;
+	text-align: center !important;
+}
+
+.header-date {
+	color: rgba(255, 255, 255, 0.92);
+}
+
+.time-cell {
+	width: 96px;
+	min-width: 96px;
+	max-width: 96px;
+	font-weight: 800;
+	background: #f8fafc;
+	text-align: center !important;
+}
+
+.grid-cell {
+	min-width: 132px;
+	vertical-align: top;
+	min-height: 86px;
+}
+
+.grid-item {
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 12px;
+	margin-bottom: 8px;
+	background: #fff;
+	min-height: 78px;
+}
+
+.grid-item:last-child {
+	margin-bottom: 0;
+}
+
+.grid-item-title {
+	font-weight: 800;
+}
+
+.grid-item-trainer,
+.grid-item-time,
+.grid-item-hall {
+	font-size: 0.85rem;
+	color: var(--muted);
+}
+
+.grid-item-gap {
+	height: 10px;
+}
+
+.schedule-table .occupancy-value {
+	font-weight: 900;
+	color: var(--text);
+}
+
+.empty-state {
+	padding: 18px;
+	margin-top: 12px;
+	text-align: center;
+}
+
+@media (max-width: 1080px) {
+	.filters-grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+	.filter-actions {
+		grid-column: 1 / -1;
+	}
+	.week-controls {
+		flex-wrap: wrap;
+	}
+	.week-range {
+		min-width: 0;
+		width: 100%;
+		order: 1;
+	}
+	.schedule-table th,
+	.schedule-table td {
+		padding: 10px 12px;
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 640px) {
+	.schedule-table-wrap {
+		margin-left: -18px;
+		margin-right: -18px;
+		border-radius: 0;
+	}
+	.schedule-table thead th:first-child,
+	.schedule-table thead th:last-child {
+		border-radius: 0;
+	}
+}

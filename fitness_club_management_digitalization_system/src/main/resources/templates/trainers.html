@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Тренеры</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/trainers.css" th:href="@{/css/trainers.css}">
+</head>
+
+<body data-api-base="/api/public">
+	<div th:replace="~{fragments/default-header :: default-header('trainers')}"></div>
+
+	<main class="container">
+		<h1 class="page-title">Тренеры</h1>
+
+		<section class="card toolbar" aria-label="Фильтры">
+			<div class="toolbar-grid">
+				<div class="tool">
+					<label for="f-experience">Опыт</label>
+					<select id="f-experience" class="field">
+						<option value="">Любой</option>
+					</select>
+				</div>
+				<div class="tool">
+					<label for="f-specialization">Специализация</label>
+					<select id="f-specialization" class="field">
+						<option value="">Все</option>
+					</select>
+				</div>
+				<div class="tool">
+					<label for="f-rating">Рейтинг</label>
+					<select id="f-rating" class="field">
+						<option value="">Любой</option>
+					</select>
+				</div>
+				<div class="tool tool-actions">
+					<button id="btn-find" class="btn btn-primary" type="button">Найти</button>
+					<button id="btn-clear" class="btn btn-secondary" type="button">Очистить</button>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Команда</h2>
+			<div id="grid" class="grid"></div>
+			<div id="empty" class="empty card" hidden>
+				<h3>Ничего не найдено</h3>
+				<p class="muted">Попробуйте изменить параметры поиска.</p>
+			</div>
+		</section>
+	</main>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<script src="/js/trainers.js" th:src="@{/js/trainers.js}"></script>
+</body>
+
+</html>
+

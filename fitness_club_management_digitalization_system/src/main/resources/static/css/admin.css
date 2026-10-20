@@ -1,0 +1,595 @@
+.top-nav-submenu-wrap {
+	position: relative;
+	z-index: 100;
+}
+
+.top-nav-submenu-label {
+	display: inline-flex;
+	align-items: center;
+	padding: 8px 12px;
+	font-weight: 800;
+	font-size: 0.92rem;
+	color: var(--text);
+	cursor: default;
+	border-radius: 10px;
+	user-select: none;
+}
+
+.top-nav-submenu-wrap.is-active-branch > .top-nav-submenu-label {
+	color: var(--brand);
+}
+
+/*
+ * В base.css у .top-nav ul задано display:flex для всех вложенных ul — из‑за большей специфичности
+ * оно перебивало display:none у подменю, и «Зоны / Залы» были видны всегда.
+ * Здесь используем .top-nav .top-nav-submenu, чтобы скрывать список по умолчанию.
+ */
+.top-nav .top-nav-submenu {
+	display: none;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	gap: 0;
+	justify-content: flex-start;
+	align-items: stretch;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	margin: 0;
+	padding: 10px 0 8px;
+	min-width: 200px;
+	list-style: none;
+	background: var(--bg);
+	border: 1px solid var(--border);
+	border-radius: 14px;
+	box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+	z-index: 101;
+}
+
+/* Подменю только при наведении на пункт */
+.top-nav-submenu-wrap:hover > .top-nav-submenu {
+	display: flex;
+}
+
+.top-nav-submenu a {
+	display: block;
+	padding: 10px 16px;
+	font-weight: 750;
+	color: var(--text);
+	text-decoration: none;
+}
+
+.top-nav-submenu a:hover {
+	background: rgba(13, 148, 136, 0.08);
+}
+
+.top-nav-submenu a.active {
+	background: rgba(13, 148, 136, 0.14);
+	color: var(--brand);
+	font-weight: 850;
+}
+
+.admin-page {
+	padding-bottom: 28px;
+}
+
+/* Шире контейнер и больше отступы между блоками на всех страницах админки */
+main.container.admin-page {
+	max-width: 1600px;
+}
+
+.admin-page .card {
+	margin-bottom: 26px;
+}
+
+.admin-page .card:last-child {
+	margin-bottom: 0;
+}
+
+.admin-grid {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 24px;
+}
+
+.admin-toolbar {
+	padding: 20px 20px;
+	display: flex;
+	gap: 18px;
+	flex-wrap: wrap;
+	align-items: end;
+	margin-bottom: 26px;
+}
+
+.admin-field {
+	min-width: 260px;
+	flex: 1 1 260px;
+}
+
+.admin-field label {
+	display: block;
+	margin-bottom: 8px;
+	font-weight: 800;
+	font-size: 0.92rem;
+}
+
+.admin-actions {
+	display: flex;
+	gap: 10px;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+}
+
+.fixed-form-actions {
+	position: sticky;
+	bottom: 0;
+	right: 0;
+	z-index: 5;
+	justify-content: flex-end !important;
+	padding-top: 12px;
+	padding-bottom: 4px;
+	margin-top: 14px;
+	background: linear-gradient(to top, var(--surface) 78%, rgba(255, 255, 255, 0));
+}
+
+.doc-modal-form {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+
+.doc-modal-form .admin-form-grid {
+	flex: 0 1 auto;
+	align-content: start;
+	gap: 10px 14px;
+}
+
+.doc-modal-form .fixed-form-actions {
+	margin-top: 14px !important;
+}
+
+.admin-btn {
+	padding: 10px 14px;
+	border-radius: 12px;
+	font-weight: 900;
+	border: none;
+	cursor: pointer;
+}
+
+.admin-btn.primary {
+	background: var(--brand);
+	color: #fff;
+}
+
+.admin-btn.primary:hover {
+	background: var(--brand-hover);
+}
+
+.admin-btn.danger {
+	background: rgba(220, 38, 38, 0.12);
+	color: #b91c1c;
+	border: 1px solid rgba(185, 28, 28, 0.25);
+}
+
+.admin-btn.danger:hover {
+	background: rgba(220, 38, 38, 0.18);
+}
+
+.admin-btn.secondary {
+	background: rgba(17, 24, 39, 0.08);
+	color: var(--text);
+	border: 1px solid var(--border);
+}
+
+.admin-btn.secondary:hover {
+	background: rgba(17, 24, 39, 0.12);
+}
+
+.admin-btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.admin-table-wrap {
+	overflow-x: auto;
+}
+
+/* Журнал и др.: вертикальная прокрутка тела таблицы с закреплённой шапкой */
+.admin-table-wrap--sticky-head {
+	max-height: min(65vh, 560px);
+	overflow-y: auto;
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
+.admin-table-wrap--sticky-head .admin-table thead th {
+	position: sticky;
+	top: 0;
+	z-index: 3;
+	background: var(--header);
+	box-shadow: 0 1px 0 rgba(15, 23, 42, 0.12);
+}
+
+.admin-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-size: 0.95rem;
+	border: 1px solid var(--border);
+}
+
+.admin-table th,
+.admin-table td {
+	padding: 12px 14px;
+	text-align: left;
+	border-bottom: 1px solid var(--border);
+	border-right: 1px solid var(--border);
+	vertical-align: top;
+}
+
+.admin-table th:last-child,
+.admin-table td:last-child {
+	border-right: none;
+}
+
+.admin-table thead th {
+	background: var(--header);
+	color: #fff;
+	white-space: nowrap;
+	font-weight: 900;
+}
+
+.admin-table tbody tr:hover {
+	background: var(--bg);
+}
+
+/*
+ * Последняя колонка с «Редактировать / Активировать|Деактивировать / Удалить» —
+ * фиксированные ширины кнопок, чтобы таблица не прыгала при смене подписи.
+ */
+.admin-table-wrap.admin-table--fixed-actions .admin-table {
+	table-layout: fixed;
+}
+
+.admin-table-wrap.admin-table--fixed-actions .admin-table th:last-child,
+.admin-table-wrap.admin-table--fixed-actions .admin-table td:last-child {
+	width: 31rem;
+	min-width: 31rem;
+	max-width: 31rem;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.admin-table-wrap.admin-table--fixed-actions .admin-actions.admin-actions--table-row {
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 8px;
+}
+
+.admin-table-wrap.admin-table--fixed-actions .admin-actions--table-row .admin-btn--table-edit {
+	flex: 0 0 10.5rem;
+	min-width: 10.5rem;
+	max-width: 10.5rem;
+	box-sizing: border-box;
+	padding-left: 6px;
+	padding-right: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.admin-table-wrap.admin-table--fixed-actions .admin-actions--table-row .admin-btn--toggle-active {
+	flex: 0 0 12rem;
+	min-width: 12rem;
+	max-width: 12rem;
+	box-sizing: border-box;
+	padding-left: 6px;
+	padding-right: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.admin-table-wrap.admin-table--fixed-actions .admin-actions--table-row .admin-btn--table-delete {
+	flex: 0 0 6.5rem;
+	min-width: 6.5rem;
+	max-width: 6.5rem;
+	box-sizing: border-box;
+	padding-left: 6px;
+	padding-right: 6px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	text-align: center;
+}
+
+.admin-form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 24px;
+}
+
+.admin-form-grid .span-2 {
+	grid-column: 1 / -1;
+}
+
+@media (max-width: 920px) {
+	.admin-form-grid {
+		grid-template-columns: 1fr;
+	}
+	.admin-form-grid .span-2 { grid-column: auto; }
+}
+
+.admin-divider {
+	height: 1px;
+	background: var(--border);
+	margin: 6px 0;
+}
+
+.admin-small {
+	color: var(--muted);
+	font-weight: 800;
+	font-size: 0.86rem;
+	margin-top: -6px;
+}
+
+.admin-checkboxes {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.admin-checkboxes label {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	font-weight: 850;
+}
+
+/* --- Страница «Клиенты» --- */
+.clients-search-card {
+	border-radius: 16px;
+}
+
+.clients-table-card,
+.clients-add-card {
+	border-radius: 16px;
+	box-shadow: var(--shadow);
+}
+
+/* --- Модальные окна админки --- */
+.admin-modal-overlay {
+	position: fixed;
+	inset: 0;
+	z-index: 4000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.admin-modal-overlay[hidden] {
+	display: none !important;
+}
+
+.admin-modal-backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.5);
+	backdrop-filter: blur(2px);
+}
+
+.admin-modal-stack {
+	position: relative;
+	z-index: 1;
+	width: 100%;
+	max-width: 1240px;
+	min-height: 120px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+}
+
+.admin-modal-stack > .admin-modal {
+	pointer-events: auto;
+}
+
+.admin-modal {
+	position: relative;
+	background: var(--surface);
+	color: var(--text);
+	border-radius: 18px;
+	box-shadow: 0 24px 60px rgba(15, 23, 42, 0.2);
+	max-width: 720px;
+	width: 100%;
+	max-height: min(90vh, 900px);
+	overflow: auto;
+	padding: 22px 24px 24px;
+	border: 1px solid var(--border);
+}
+
+.admin-modal--wide {
+	max-width: 1100px;
+}
+
+/* Кнопка в конце длинной формы: видна только после прокрутки модального окна до низа */
+.admin-modal-form-end {
+	margin-top: 20px;
+	padding-bottom: 6px;
+}
+
+/* Документы: высота по содержимому, без пустого места снизу; при большом содержимом — прокрутка */
+.admin-modal--docs-fixed {
+	height: auto;
+	max-height: min(86vh, 860px);
+	overflow-y: auto;
+}
+
+.admin-modal--menu {
+	max-width: 480px;
+}
+
+.admin-modal--freeze {
+	max-width: 440px;
+}
+
+.admin-modal--freeze-top {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 5;
+	pointer-events: auto;
+	margin: 0;
+}
+
+.admin-modal-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-bottom: 4px;
+}
+
+.admin-modal-title {
+	font-size: 1.25rem;
+	font-weight: 900;
+}
+
+.admin-modal-lead {
+	color: var(--muted);
+	font-weight: 650;
+	margin-top: 10px;
+	line-height: 1.45;
+}
+
+.admin-modal-close {
+	position: absolute;
+	top: 14px;
+	right: 16px;
+	width: 40px;
+	height: 40px;
+	border: none;
+	background: rgba(15, 23, 42, 0.06);
+	border-radius: 10px;
+	font-size: 1.5rem;
+	line-height: 1;
+	cursor: pointer;
+	color: var(--text);
+}
+
+.admin-modal-close:hover {
+	background: rgba(15, 23, 42, 0.1);
+}
+
+.admin-modal--menu .admin-modal-close,
+.admin-modal--freeze .admin-modal-close {
+	position: static;
+	width: auto;
+	height: auto;
+	padding: 8px 12px;
+	font-size: 1.25rem;
+}
+
+.admin-modal--menu .admin-modal-header,
+.admin-modal--freeze .admin-modal-header {
+	align-items: flex-start;
+}
+
+.admin-modal-back {
+	margin-right: auto;
+}
+
+.admin-modal-choice-grid {
+	display: grid;
+	gap: 12px;
+	margin-top: 20px;
+}
+
+.admin-modal-choice {
+	display: block;
+	width: 100%;
+	text-align: left;
+	padding: 16px 18px;
+	border-radius: 14px;
+	border: 1px solid var(--border);
+	background: var(--bg);
+	font-weight: 850;
+	font-size: 1rem;
+	cursor: pointer;
+	color: var(--text);
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.admin-modal-choice:hover {
+	border-color: rgba(13, 148, 136, 0.45);
+	background: rgba(13, 148, 136, 0.08);
+}
+
+.admin-zone-multiselect {
+	min-height: 140px;
+}
+
+.admin-zone-multiselect-hint {
+	margin: 8px 0 0;
+	color: rgba(17, 24, 39, 0.55);
+	font-size: 0.88rem;
+	line-height: 1.4;
+}
+
+.admin-alert {
+	margin-top: 14px;
+	padding: 14px 16px;
+	border-radius: 14px;
+	font-size: 0.92rem;
+	line-height: 1.5;
+	border: 1px solid transparent;
+}
+
+.admin-alert--error {
+	background: linear-gradient(135deg, rgba(254, 226, 226, 0.55) 0%, rgba(254, 242, 242, 0.95) 100%);
+	border-color: rgba(185, 28, 28, 0.28);
+	color: #7f1d1d;
+	box-shadow: 0 1px 2px rgba(127, 29, 29, 0.06);
+}
+
+.admin-alert--error .admin-alert-title {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 0.78rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #991b1b;
+}
+
+.admin-alert--error .admin-alert-body {
+	white-space: pre-line;
+	margin: 0;
+}
+
+.admin-alert--success {
+	background: linear-gradient(135deg, rgba(209, 250, 229, 0.45) 0%, rgba(236, 253, 245, 0.95) 100%);
+	border-color: rgba(5, 150, 105, 0.28);
+	color: #065f46;
+	box-shadow: 0 1px 2px rgba(6, 95, 70, 0.06);
+}
+
+.admin-alert--success .admin-alert-title {
+	display: block;
+	margin-bottom: 8px;
+	font-size: 0.78rem;
+	font-weight: 800;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: #047857;
+}
+
+.admin-alert--success .admin-alert-body {
+	white-space: pre-line;
+	margin: 0;
+}
+

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Тренер — слоты персональных тренировок</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="/css/trainer-slots.css" th:href="@{/css/trainer-slots.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/trainer-header :: trainer-header('slots')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Создание слотов персональных тренировок</h1>
+
+		<section class="card trainer-slots-filter-card">
+			<form id="slot-form" class="admin-form-grid trainer-slots-slot-form" novalidate>
+				<div class="admin-field">
+					<label for="slot-date">Дата</label>
+					<input id="slot-date" class="field" type="date" required>
+				</div>
+				<div class="admin-field">
+					<label for="slot-time">Время начала</label>
+					<input id="slot-time" class="field" type="time" required>
+				</div>
+				<div class="admin-field">
+					<label for="slot-zone">Зона</label>
+					<select id="slot-zone" class="field" required></select>
+				</div>
+				<div class="admin-field">
+					<label for="slot-hall">Зал</label>
+					<select id="slot-hall" class="field" required></select>
+				</div>
+				<div class="trainer-slots-form-actions">
+					<button type="submit" class="admin-btn primary">Создать слот</button>
+				</div>
+			</form>
+		</section>
+
+		<section class="card trainer-slots-table-card">
+			<div class="section-title" style="margin-bottom: 12px;">Мои персональные слоты</div>
+			<div class="admin-table-wrap trainer-slots-table-wrap">
+				<table class="admin-table" aria-label="Мои персональные слоты">
+					<thead>
+						<tr>
+							<th>Дата/время</th>
+							<th>Зал</th>
+							<th>Зона</th>
+							<th>Клиент</th>
+						</tr>
+					</thead>
+					<tbody id="trainer-slots-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/client-data.js" th:src="@{/js/client-data.js}"></script>
+	<script src="/js/trainer-slots.js" th:src="@{/js/trainer-slots.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Расписание групповых тренировок</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/schedule.css" th:href="@{/css/schedule.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/client}">
+	<div th:replace="~{fragments/client-header :: client-header('schedule')}"></div>
+
+	<main class="container">
+		<h1 class="page-title">Расписание групповых тренировок</h1>
+
+		<section class="card filters" aria-label="Фильтры">
+			<div class="filters-grid">
+				<div class="filter">
+					<label for="f-date">Дата</label>
+					<input id="f-date" class="field" type="date" />
+				</div>
+				<div class="filter">
+					<label for="f-service">Тренировка</label>
+					<select id="f-service" class="field">
+						<option value="">Все</option>
+					</select>
+				</div>
+				<div class="filter">
+					<label for="f-trainer">Тренер</label>
+					<select id="f-trainer" class="field">
+						<option value="">Все</option>
+					</select>
+				</div>
+				<div class="filter">
+					<label for="f-hall">Зал</label>
+					<select id="f-hall" class="field">
+						<option value="">Все</option>
+					</select>
+				</div>
+				<div class="filter">
+					<label for="f-time">Время начала</label>
+					<input id="f-time" class="field" type="time" />
+				</div>
+				<div class="filter filter-actions">
+					<button id="btn-find" class="btn btn-primary" type="button">Найти</button>
+					<button id="btn-reset" class="btn btn-secondary" type="button">Очистить</button>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 class="section-title">Недельная сетка занятий</h2>
+			<div class="week-controls card">
+				<button id="btn-week-prev" class="icon-arrow-btn" type="button" aria-label="Предыдущая неделя">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M15 6L9 12L15 18"></path>
+					</svg>
+				</button>
+				<div id="week-range" class="week-range">—</div>
+				<button id="btn-week-next" class="icon-arrow-btn" type="button" aria-label="Следующая неделя">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M9 6L15 12L9 18"></path>
+					</svg>
+				</button>
+			</div>
+			<div class="schedule-table-wrap">
+				<table class="schedule-table" aria-label="Недельная сетка тренировок">
+					<thead>
+						<tr id="schedule-head-row"></tr>
+					</thead>
+					<tbody id="schedule-grid-body" aria-live="polite"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/schedule.js" th:src="@{/js/schedule.js}"></script>
+</body>
+
+</html>

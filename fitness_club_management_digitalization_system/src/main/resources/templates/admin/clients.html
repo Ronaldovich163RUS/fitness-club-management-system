@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Админ: клиенты</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/admin}">
+	<div th:replace="~{fragments/admin-header :: admin-header('clients')}"></div>
+
+	<main class="container admin-page admin-clients-page">
+		<h1 class="page-title" style="margin-top: 34px;">Клиенты</h1>
+
+		<div class="card admin-toolbar clients-search-card" aria-label="Поиск клиентов">
+			<div class="admin-field">
+				<label for="q-lastname">Фамилия</label>
+				<input id="q-lastname" class="field" type="text" placeholder="Напр.: Иванов" />
+			</div>
+			<div class="admin-field">
+				<label for="q-email">Email</label>
+				<input id="q-email" class="field" type="email" placeholder="name@example.com" />
+			</div>
+			<div class="admin-field">
+				<label for="q-phone">Телефон</label>
+				<input id="q-phone" class="field" type="tel" placeholder="+7 ..." />
+			</div>
+			<div class="admin-field">
+				<label for="q-gender">Пол</label>
+				<select id="q-gender" class="field">
+					<option value="">Любой</option>
+					<option value="Мужской">Мужской</option>
+					<option value="Женский">Женский</option>
+				</select>
+			</div>
+			<div class="admin-actions">
+				<button id="btn-search" type="button" class="admin-btn primary">Найти</button>
+				<button id="btn-clear-search" type="button" class="admin-btn secondary">Сбросить</button>
+			</div>
+		</div>
+
+		<div class="admin-table-wrap card clients-table-card" style="padding: 14px;">
+			<table class="admin-table" aria-label="Таблица клиентов">
+				<thead>
+					<tr>
+						<th>ФИО</th>
+						<th>Дата рождения</th>
+						<th>Телефон</th>
+						<th>Email</th>
+						<th>Пол</th>
+						<th>Действия</th>
+					</tr>
+				</thead>
+				<tbody id="clients-tbody"></tbody>
+			</table>
+		</div>
+
+		<div class="card clients-add-card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 14px;">Добавление</div>
+			<div class="admin-actions" style="margin: 0 0 12px; justify-content:flex-start;">
+				<button id="btn-open-add-from-trainer" type="button" class="admin-btn secondary">Добавить из тренера</button>
+			</div>
+			<p class="admin-small" style="margin: 0 0 16px;">Новый клиент: персональные данные. Редактирование существующих записей — через кнопку «Редактировать» в таблице.</p>
+			<form id="addClientForm" novalidate>
+				<div class="admin-form-grid">
+					<div>
+						<label for="add_last_name" style="display:block;margin-bottom:8px;font-weight:900;">Фамилия</label>
+						<input id="add_last_name" class="field" type="text" required placeholder="Иванов" />
+					</div>
+					<div>
+						<label for="add_first_name" style="display:block;margin-bottom:8px;font-weight:900;">Имя</label>
+						<input id="add_first_name" class="field" type="text" required placeholder="Иван" />
+					</div>
+					<div>
+						<label for="add_middle_name" style="display:block;margin-bottom:8px;font-weight:900;">Отчество</label>
+						<input id="add_middle_name" class="field" type="text" required placeholder="Иванович" />
+					</div>
+					<div>
+						<label for="add_birth_date" style="display:block;margin-bottom:8px;font-weight:900;">Дата рождения</label>
+						<input id="add_birth_date" class="field" type="date" required />
+					</div>
+					<div>
+						<label for="add_phone" style="display:block;margin-bottom:8px;font-weight:900;">Телефон</label>
+						<input id="add_phone" class="field" type="tel" required placeholder="+7 ..." />
+					</div>
+					<div>
+						<label for="add_email" style="display:block;margin-bottom:8px;font-weight:900;">Email</label>
+						<input id="add_email" class="field" type="email" required placeholder="name@example.com" />
+					</div>
+					<div>
+						<label for="add_gender" style="display:block;margin-bottom:8px;font-weight:900;">Пол</label>
+						<select id="add_gender" class="field" required>
+							<option value="Мужской">Мужской</option>
+							<option value="Женский">Женский</option>
+						</select>
+					</div>
+					<div class="span-2">
+						<label for="add_registration_address" style="display:block;margin-bottom:8px;font-weight:900;">Адрес регистрации</label>
+						<textarea id="add_registration_address" class="field" rows="2" required placeholder="Не менее 10 символов" style="resize:vertical;"></textarea>
+					</div>
+					<div class="span-2">
+						<label for="add_actual_address" style="display:block;margin-bottom:8px;font-weight:900;">Фактический адрес</label>
+						<textarea id="add_actual_address" class="field" rows="2" placeholder="Необязательно" style="resize:vertical;"></textarea>
+					</div>
+					<div>
+						<label for="add_password" style="display:block;margin-bottom:8px;font-weight:900;">Пароль</label>
+						<input id="add_password" class="field" type="password" required autocomplete="new-password" />
+					</div>
+					<div>
+						<label for="add_password_confirm" style="display:block;margin-bottom:8px;font-weight:900;">Подтверждение пароля</label>
+						<input id="add_password_confirm" class="field" type="password" required autocomplete="new-password" />
+					</div>
+				</div>
+				<div class="admin-actions" style="margin-top: 14px;">
+					<button id="btn-save-add-client" type="submit" class="admin-btn primary">Добавить клиента</button>
+					<button id="btn-reset-add-client" type="button" class="admin-btn secondary">Очистить форму</button>
+				</div>
+			</form>
+		</div>
+	</main>
+
+	<!-- Модальные окна -->
+	<div id="admin-modal-root" class="admin-modal-overlay" hidden aria-hidden="true">
+		<div class="admin-modal-backdrop" data-modal-dismiss="root" aria-hidden="true"></div>
+		<div class="admin-modal-stack">
+
+			<div id="modal-edit-menu" class="admin-modal admin-modal--menu" role="dialog" aria-labelledby="modal-edit-menu-title">
+				<div class="admin-modal-header">
+					<h2 id="modal-edit-menu-title" class="admin-modal-title">Действия с клиентом</h2>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<p class="admin-modal-lead">Выбран: <strong id="modal-client-name"></strong></p>
+				<div class="admin-modal-choice-grid">
+					<button type="button" id="btn-open-edit-personal" class="admin-modal-choice">Редактировать персональные данные</button>
+					<button type="button" id="btn-open-edit-docs" class="admin-modal-choice">Редактировать документы</button>
+				</div>
+			</div>
+
+			<div id="modal-personal" class="admin-modal" role="dialog" hidden aria-labelledby="modal-personal-title">
+				<div class="admin-modal-header">
+					<button type="button" class="admin-btn secondary admin-modal-back" id="btn-back-personal-to-menu">← Назад</button>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<h2 id="modal-personal-title" class="admin-modal-title" style="margin-top:8px;">Персональные данные</h2>
+				<form id="editClientForm" novalidate>
+					<input type="hidden" id="edit_client_id" />
+					<input type="hidden" id="edit_personal_data_id" />
+					<div class="admin-form-grid" style="margin-top:16px;">
+						<div>
+							<label for="edit_last_name" style="display:block;margin-bottom:8px;font-weight:900;">Фамилия</label>
+							<input id="edit_last_name" class="field" type="text" required />
+						</div>
+						<div>
+							<label for="edit_first_name" style="display:block;margin-bottom:8px;font-weight:900;">Имя</label>
+							<input id="edit_first_name" class="field" type="text" required />
+						</div>
+						<div>
+							<label for="edit_middle_name" style="display:block;margin-bottom:8px;font-weight:900;">Отчество</label>
+							<input id="edit_middle_name" class="field" type="text" />
+						</div>
+						<div>
+							<label for="edit_birth_date" style="display:block;margin-bottom:8px;font-weight:900;">Дата рождения</label>
+							<input id="edit_birth_date" class="field" type="date" required />
+						</div>
+						<div>
+							<label for="edit_phone" style="display:block;margin-bottom:8px;font-weight:900;">Телефон</label>
+							<input id="edit_phone" class="field" type="tel" required />
+						</div>
+						<div>
+							<label for="edit_email" style="display:block;margin-bottom:8px;font-weight:900;">Email</label>
+							<input id="edit_email" class="field" type="email" required />
+						</div>
+						<div>
+							<label for="edit_gender" style="display:block;margin-bottom:8px;font-weight:900;">Пол</label>
+							<select id="edit_gender" class="field" required>
+								<option value="Мужской">Мужской</option>
+								<option value="Женский">Женский</option>
+							</select>
+						</div>
+						<div class="span-2">
+							<label for="edit_registration_address" style="display:block;margin-bottom:8px;font-weight:900;">Адрес регистрации</label>
+							<textarea id="edit_registration_address" class="field" rows="2" required style="resize:vertical;"></textarea>
+						</div>
+						<div class="span-2">
+							<label for="edit_actual_address" style="display:block;margin-bottom:8px;font-weight:900;">Фактический адрес</label>
+							<textarea id="edit_actual_address" class="field" rows="2" style="resize:vertical;"></textarea>
+						</div>
+						<div>
+							<label for="edit_new_password" style="display:block;margin-bottom:8px;font-weight:900;">Новый пароль</label>
+							<input id="edit_new_password" class="field" type="password" autocomplete="new-password" />
+						</div>
+						<div>
+							<label for="edit_new_password_confirm" style="display:block;margin-bottom:8px;font-weight:900;">Подтверждение</label>
+							<input id="edit_new_password_confirm" class="field" type="password" autocomplete="new-password" />
+						</div>
+					</div>
+					<div class="admin-actions admin-modal-form-end">
+						<button type="submit" class="admin-btn primary">Сохранить</button>
+					</div>
+				</form>
+			</div>
+
+			<div id="modal-documents" class="admin-modal admin-modal--wide admin-modal--docs-fixed" role="dialog" hidden aria-labelledby="modal-documents-title">
+				<div class="admin-modal-header">
+					<button type="button" class="admin-btn secondary admin-modal-back" id="btn-back-docs-to-menu">← Назад</button>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<h2 id="modal-documents-title" class="admin-modal-title" style="margin-top:8px;">Документы клиента</h2>
+				<div class="admin-table-wrap" style="margin-bottom: 20px;">
+					<table class="admin-table" aria-label="Документы клиента">
+						<thead>
+							<tr>
+								<th>Тип</th>
+								<th>Серия</th>
+								<th>Номер</th>
+								<th>Кем выдан</th>
+								<th>Дата выдачи</th>
+								<th>Срок действия</th>
+								<th>Проверен</th>
+								<th>Действия</th>
+							</tr>
+						</thead>
+						<tbody id="documents-modal-tbody"></tbody>
+					</table>
+				</div>
+				<form id="documentModalForm" class="doc-modal-form" novalidate>
+					<input type="hidden" id="mdoc_personal_data_id" />
+					<input type="hidden" id="mdoc_id" />
+					<div class="admin-form-grid">
+						<div>
+							<label for="mdoc_type" style="display:block;margin-bottom:8px;font-weight:900;">Тип документа</label>
+							<select id="mdoc_type" class="field" required>
+								<option value="PASSPORT_RF">Паспорт РФ</option>
+								<option value="STUDENT_ID">Студенческий билет</option>
+								<option value="PENSION_CERT">Пенсионное удостоверение</option>
+							</select>
+						</div>
+						<div id="mdoc_field_series">
+							<label for="mdoc_series" style="display:block;margin-bottom:8px;font-weight:900;">Серия</label>
+							<input id="mdoc_series" class="field" type="text" maxlength="20" placeholder="Напр. 4512" />
+						</div>
+						<div>
+							<label for="mdoc_number" style="display:block;margin-bottom:8px;font-weight:900;">Номер</label>
+							<input id="mdoc_number" class="field" type="text" required maxlength="30" placeholder="123456" />
+						</div>
+						<div id="mdoc_field_issued_by" class="span-2">
+							<label for="mdoc_issued_by" style="display:block;margin-bottom:8px;font-weight:900;">Кем выдан</label>
+							<input id="mdoc_issued_by" class="field" type="text" maxlength="255" placeholder="ОУФМС России..." />
+						</div>
+						<div id="mdoc_field_issue_date">
+							<label for="mdoc_issue_date" style="display:block;margin-bottom:8px;font-weight:900;">Дата выдачи</label>
+							<input id="mdoc_issue_date" class="field" type="date" />
+						</div>
+						<div id="mdoc_field_expiry_date">
+							<label for="mdoc_expiry_date" style="display:block;margin-bottom:8px;font-weight:900;">Срок действия</label>
+							<input id="mdoc_expiry_date" class="field" type="date" />
+						</div>
+						<div id="mdoc_field_notes" class="span-2">
+							<label for="mdoc_notes" style="display:block;margin-bottom:8px;font-weight:900;">Примечания <span class="muted" style="font-weight:700;">(необязательно)</span></label>
+							<textarea id="mdoc_notes" class="field" rows="2" placeholder="Текст примечания" style="resize: vertical;"></textarea>
+						</div>
+						<div>
+							<label class="admin-checkboxes">
+								<input type="checkbox" id="mdoc_is_verified" />
+								<span>Проверен</span>
+							</label>
+						</div>
+					</div>
+					<div class="admin-actions admin-modal-form-end">
+						<button type="submit" class="admin-btn primary">Добавить / Сохранить документ</button>
+						<button type="button" id="btn-reset-mdoc" class="admin-btn secondary">Очистить форму</button>
+						<button type="button" id="btn-delete-mdoc" class="admin-btn danger" style="display:none;">Удалить документ</button>
+					</div>
+				</form>
+			</div>
+
+			<div id="modal-add-from-trainer" class="admin-modal" role="dialog" hidden aria-labelledby="modal-add-from-trainer-title">
+				<div class="admin-modal-header">
+					<h2 id="modal-add-from-trainer-title" class="admin-modal-title">Создать клиента из тренера</h2>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<div class="admin-field" style="margin-top: 10px;">
+					<label for="select-trainer-for-client">Тренер</label>
+					<select id="select-trainer-for-client" class="field">
+						<option value="">Выберите тренера</option>
+					</select>
+				</div>
+				<div class="admin-actions" style="margin-top: 14px; justify-content:flex-start;">
+					<button id="btn-create-client-from-trainer" type="button" class="admin-btn primary">Создать клиента</button>
+				</div>
+			</div>
+
+			<div id="modal-membership-management" class="admin-modal admin-modal--wide" role="dialog" hidden aria-labelledby="modal-membership-management-title">
+				<div class="admin-modal-header">
+					<button type="button" class="admin-btn secondary admin-modal-back" id="btn-back-membership-to-menu">← Назад</button>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<h2 id="modal-membership-management-title" class="admin-modal-title" style="margin-top:8px;">Управление абонементом клиента</h2>
+				<div class="admin-table-wrap" style="margin: 14px 0;">
+					<table class="admin-table" aria-label="Текущий абонемент клиента">
+						<thead>
+							<tr>
+								<th>Название абонемента</th>
+								<th>Оставшиеся дни заморозки</th>
+								<th>Оставшиеся гостевые визиты</th>
+								<th>Начало действия</th>
+								<th>Окончание</th>
+								<th>Статус</th>
+							</tr>
+						</thead>
+						<tbody id="admin-membership-info-tbody"></tbody>
+					</table>
+				</div>
+				<div class="admin-actions" style="justify-content: space-between; margin-bottom: 12px;">
+					<div class="admin-actions" style="justify-content:flex-start;">
+						<button type="button" id="btn-freeze-membership" class="admin-btn secondary">Заморозить абонемент</button>
+						<button type="button" id="btn-unfreeze-membership" class="admin-btn secondary" style="display:none;">Разморозить абонемент</button>
+						<button type="button" id="btn-annul-membership" class="admin-btn danger">Аннулировать абонемент</button>
+					</div>
+					<button id="btn-admin-membership-details" type="button" class="admin-btn primary">Подробнее</button>
+				</div>
+			</div>
+
+			<div id="modal-membership-rules" class="admin-modal admin-modal--wide" role="dialog" hidden aria-labelledby="modal-membership-rules-title">
+				<div class="admin-modal-header">
+					<button type="button" class="admin-btn secondary admin-modal-back" id="btn-back-membership-rules">← Назад</button>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<h2 id="modal-membership-rules-title" class="admin-modal-title" style="margin-top:8px;">Услуги по абонементу и правила пользования</h2>
+				<div class="admin-table-wrap" style="margin-top: 14px;">
+					<table class="admin-table" aria-label="Услуги по абонементу клиента">
+						<thead>
+							<tr>
+								<th>Услуга</th>
+								<th>Включено посещений</th>
+								<th>Остаток</th>
+								<th>Макс. в неделю</th>
+								<th>Дни недели</th>
+								<th>Время с</th>
+								<th>Время по</th>
+							</tr>
+						</thead>
+						<tbody id="admin-membership-rules-tbody"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div id="modal-membership-freeze" class="admin-modal" role="dialog" hidden aria-labelledby="modal-membership-freeze-title">
+				<div class="admin-modal-header">
+					<button type="button" class="admin-btn secondary admin-modal-back" id="btn-back-freeze-membership">← Назад</button>
+					<button type="button" class="admin-modal-close" data-modal-dismiss="root" aria-label="Закрыть">×</button>
+				</div>
+				<h2 id="modal-membership-freeze-title" class="admin-modal-title" style="margin-top:8px;">Заморозить абонемент</h2>
+				<div class="admin-field" style="margin-top: 14px;">
+					<label for="membership-freeze-days">Количество дней заморозки</label>
+					<input id="membership-freeze-days" class="field" type="number" min="1" step="1" />
+				</div>
+				<div class="admin-actions" style="margin-top: 14px; justify-content:flex-end;">
+					<button type="button" id="btn-confirm-freeze-membership" class="admin-btn primary">Применить</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/admin-clients.js" th:src="@{/js/admin-clients.js}"></script>
+
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

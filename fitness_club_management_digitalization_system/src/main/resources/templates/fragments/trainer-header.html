@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Trainer Header</title>
+</head>
+<body>
+<header th:fragment="trainer-header(activePage)">
+	<div class="container header-content">
+		<a class="logo" href="/" th:href="@{/}" aria-label="На главную">
+			<span>FIT</span>
+			<svg class="brand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+				<path d="M3 10h2v4H3zM5 9h2v6H5zM7 11h3v2H7zM10 11h4v2h-4zM14 11h3v2h-3zM17 9h2v6h-2zM19 10h2v4h-2z" />
+			</svg>
+			<span>CLUB</span>
+		</a>
+
+		<nav class="top-nav" aria-label="Меню тренера">
+			<ul>
+				<li><a th:classappend="${activePage}=='profile' ? ' active' : ''" href="/trainer/profile" th:href="@{/trainer/profile}">Мои данные</a></li>
+				<li><a th:classappend="${activePage}=='slots' ? ' active' : ''" href="/trainer/slots" th:href="@{/trainer/slots}">Слоты тренировок</a></li>
+				<li><a th:classappend="${activePage}=='plans' ? ' active' : ''" href="/trainer/plans" th:href="@{/trainer/plans}">Планы тренировок</a></li>
+				<li><a th:classappend="${activePage}=='notifications' ? ' active' : ''" href="/trainer/notifications" th:href="@{/trainer/notifications}">Уведомления клиентам</a></li>
+				<li><a th:classappend="${activePage}=='calendar' ? ' active' : ''" href="/trainer/calendar" th:href="@{/trainer/calendar}">Календарь</a></li>
+			</ul>
+		</nav>
+
+		<a class="profile-link" href="/login" th:href="@{/login}" aria-label="Выйти">
+			<svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+				<g fill="none" stroke="currentColor" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-width="2">
+					<path d="M4 21V20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21">
+						<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0" />
+					</path>
+					<path d="M12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7C16 9.20914 14.2091 11 12 11Z">
+						<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.4s" values="28;0" />
+					</path>
+				</g>
+			</svg>
+			<span class="profile-text">Тренер</span>
+		</a>
+	</div>
+</header>
+</body>
+</html>

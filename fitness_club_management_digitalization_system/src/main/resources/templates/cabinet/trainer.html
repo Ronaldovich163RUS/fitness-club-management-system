@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Личный кабинет тренера</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+	<div th:replace="~{fragments/default-header :: default-header('cabinet')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Личный кабинет тренера</h1>
+		<p class="page-subtitle">
+			Просмотр своих занятий по расписанию (<b>schedule</b>) и уведомлений. Выберите тренера для входа в кабинет.
+		</p>
+
+		<div class="card" style="padding: 20px; margin-bottom: 26px;">
+			<div class="admin-field">
+				<label for="trainer-select">Тренер (вход в кабинет)</label>
+				<select id="trainer-select" class="field">
+					<option value="">— Выберите тренера —</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="cabinet-content" style="display: none;">
+			<section class="card" style="padding: 20px; margin-bottom: 26px;">
+				<div class="section-title" style="margin: 0 0 10px;">Мои занятия</div>
+				<p class="page-subtitle" style="margin: 0 0 14px;">Назначенные на вас групповые занятия (расписание).</p>
+				<div class="admin-table-wrap">
+					<table class="admin-table" aria-label="Мои занятия">
+						<thead>
+							<tr>
+								<th>Дата</th>
+								<th>Тренировка</th>
+								<th>Зал</th>
+								<th>Время</th>
+								<th>Участников</th>
+								<th>Статус</th>
+							</tr>
+						</thead>
+						<tbody id="trainer-schedule-tbody"></tbody>
+					</table>
+				</div>
+			</section>
+
+			<section class="card" style="padding: 20px;">
+				<div class="section-title" style="margin: 0 0 10px;">Уведомления</div>
+				<p class="page-subtitle" style="margin: 0 0 14px;">Внутренние уведомления для тренера.</p>
+				<div id="trainer-notifications-list" class="admin-table-wrap"></div>
+			</section>
+		</div>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/cabinet-trainer.js" th:src="@{/js/cabinet-trainer.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

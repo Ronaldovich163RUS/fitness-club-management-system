@@ -1,0 +1,68 @@
+.personal-fixed-card {
+	min-height: 430px;
+	max-height: 430px;
+	width: 100%;
+	max-width: 100%;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+}
+
+.personal-filters-card {
+	min-height: 430px;
+}
+
+/* Поля фильтра занимают верхнюю часть карточки; кнопки — внизу справа */
+.personal-filters-card .personal-filters-body {
+	flex: 1 1 auto;
+	min-height: 0;
+}
+
+.personal-filters-actions {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	gap: 10px;
+	flex-shrink: 0;
+	margin-top: auto;
+	padding-top: 14px;
+}
+
+.personal-slots-card,
+.personal-registrations-card {
+	min-height: 0;
+	max-height: none;
+}
+
+.personal-slots-card .admin-table-wrap,
+.personal-registrations-card .admin-table-wrap {
+	width: 100%;
+	max-width: 100%;
+	flex: 0 0 auto;
+	box-sizing: border-box;
+	overflow: visible;
+}
+
+.personal-slots-card .admin-table,
+.personal-registrations-card .admin-table {
+	width: 100%;
+	table-layout: fixed;
+}
+
+.personal-table-card {
+	padding: 20px !important;
+	overflow: hidden;
+}
+
+.personal-table-card .section-title {
+	margin: 0 0 12px;
+}
+
+.personal-table-card .admin-table-wrap {
+	margin: 0;
+}
+
+#available-slots-tbody,
+#my-registrations-tbody {
+	min-height: 0;
+}

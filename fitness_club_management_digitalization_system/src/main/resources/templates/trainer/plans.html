@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Тренер — планы тренировок</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{fragments/trainer-header :: trainer-header('plans')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Планы тренировок клиентов</h1>
+
+		<section class="card" style="padding: 20px; margin-bottom: 24px;">
+			<div class="admin-field">
+				<label for="trainer-client-id">Клиент</label>
+				<select id="trainer-client-id" class="field"></select>
+			</div>
+		</section>
+
+		<section class="card" style="padding: 20px; margin-bottom: 24px;">
+			<div class="section-title" style="margin-bottom: 12px;">Создание/редактирование тренировочного плана</div>
+			<form id="plan-form" class="admin-form-grid" novalidate>
+				<input type="hidden" id="plan_id">
+				<div class="admin-field span-2">
+					<label for="plan_name">Название плана</label>
+					<input id="plan_name" class="field" required maxlength="100">
+				</div>
+				<div class="admin-field span-2">
+					<label for="plan_description">Описание</label>
+					<textarea id="plan_description" class="field" rows="2" style="resize: vertical;"></textarea>
+				</div>
+				<div class="admin-field span-2">
+					<label for="plan_exercises">Упражнения</label>
+					<textarea id="plan_exercises" class="field" rows="5" required style="resize: vertical;"></textarea>
+				</div>
+				<div style="grid-column:1 / -1; display:flex; gap:10px;">
+					<button type="submit" class="admin-btn primary">Сохранить план</button>
+					<button type="button" id="btn-plan-delete" class="admin-btn danger">Удалить план</button>
+				</div>
+			</form>
+		</section>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/client-data.js" th:src="@{/js/client-data.js}"></script>
+	<script src="/js/trainer-plans.js" th:src="@{/js/trainer-plans.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

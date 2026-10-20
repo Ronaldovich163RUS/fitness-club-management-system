@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Личный кабинет клиента</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body>
+	<div th:replace="~{fragments/default-header :: default-header('cabinet')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Личный кабинет клиента</h1>
+		<p class="page-subtitle">
+			Внутренние уведомления (<b>notification</b>, notification_type = 'system'), отправленные администратором. Выберите клиента для входа в кабинет.
+		</p>
+
+		<div class="card" style="padding: 20px; margin-bottom: 26px;">
+			<div class="admin-field">
+				<label for="client-select">Клиент (вход в кабинет)</label>
+				<select id="client-select" class="field">
+					<option value="">— Выберите клиента —</option>
+				</select>
+			</div>
+		</div>
+
+		<div id="cabinet-content" style="display: none;">
+			<section class="card" style="padding: 20px;">
+				<div class="section-title" style="margin: 0 0 10px;">Мои уведомления</div>
+				<p class="page-subtitle" style="margin: 0 0 14px;">Сообщения, отправленные вам через внутреннюю систему клуба.</p>
+				<div id="client-notifications-list"></div>
+			</section>
+		</div>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/cabinet-client.js" th:src="@{/js/cabinet-client.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

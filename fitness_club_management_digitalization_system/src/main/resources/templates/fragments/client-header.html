@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Client Header</title>
+</head>
+<body>
+<header th:fragment="client-header(activePage)">
+	<div class="container header-content">
+		<a class="logo" href="/" th:href="@{/}" aria-label="На главную">
+			<span>FIT</span>
+			<svg class="brand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+				<path d="M3 10h2v4H3zM5 9h2v6H5zM7 11h3v2H7zM10 11h4v2h-4zM14 11h3v2h-3zM17 9h2v6h-2zM19 10h2v4h-2z" />
+			</svg>
+			<span>CLUB</span>
+		</a>
+
+		<nav class="top-nav" aria-label="Меню клиента">
+			<ul>
+				<li><a th:classappend="${activePage}=='profile' ? ' active' : ''" href="/client/profile" th:href="@{/client/profile}">Мои данные</a></li>
+				<li class="dropdown">
+					<a
+						th:classappend="(${activePage}=='memberships' or ${activePage}=='buy-memberships' or ${activePage}=='buy-services') ? ' active' : ''"
+						href="/client/memberships"
+						th:href="@{/client/memberships}">Абонементы и услуги</a>
+					<div class="dropdown-menu" role="menu" aria-label="Абонементы и услуги">
+						<a th:classappend="${activePage}=='memberships' ? ' active' : ''" href="/client/memberships" th:href="@{/client/memberships}">Текущие абонементы и услуги</a>
+						<a th:classappend="${activePage}=='buy-memberships' ? ' active' : ''" href="/client/buy-memberships" th:href="@{/client/buy-memberships}">Купить абонементы</a>
+						<a th:classappend="${activePage}=='buy-services' ? ' active' : ''" href="/client/buy-services" th:href="@{/client/buy-services}">Купить услуги</a>
+					</div>
+				</li>
+				<li class="dropdown">
+					<a
+						th:classappend="(${activePage}=='types' or ${activePage}=='personal' or ${activePage}=='training-plans' or ${activePage}=='schedule') ? ' active' : ''"
+						href="/client/training-types"
+						th:href="@{/client/training-types}">Тренировки</a>
+					<div class="dropdown-menu" role="menu" aria-label="Тренировки">
+						<a th:classappend="${activePage}=='types' ? ' active' : ''" href="/client/training-types" th:href="@{/client/training-types}">Виды тренировок</a>
+						<a th:classappend="${activePage}=='personal' ? ' active' : ''" href="/client/personal-training" th:href="@{/client/personal-training}">Персональные тренировки</a>
+						<a th:classappend="${activePage}=='training-plans' ? ' active' : ''" href="/client/training-plans" th:href="@{/client/training-plans}">Тренировочные планы</a>
+						<a th:classappend="${activePage}=='schedule' ? ' active' : ''" href="/client/schedule" th:href="@{/client/schedule}">Расписание</a>
+					</div>
+				</li>
+				<li><a th:classappend="${activePage}=='trainers' ? ' active' : ''" href="/client/trainers" th:href="@{/client/trainers}">Тренеры</a></li>
+				<li><a th:classappend="${activePage}=='notifications' ? ' active' : ''" href="/client/notifications" th:href="@{/client/notifications}">Уведомления</a></li>
+				<li><a th:classappend="${activePage}=='visitors' ? ' active' : ''" href="/client/visitors" th:href="@{/client/visitors}">Посетители</a></li>
+				<li><a th:classappend="${activePage}=='faq' ? ' active' : ''" href="/client/faq" th:href="@{/client/faq}">Справка</a></li>
+			</ul>
+		</nav>
+
+		<a class="profile-link" href="/login" th:href="@{/login}" aria-label="Выйти">
+			<svg class="user-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true">
+				<g fill="none" stroke="currentColor" stroke-dasharray="28" stroke-dashoffset="28" stroke-linecap="round" stroke-width="2">
+					<path d="M4 21V20C4 16.6863 6.68629 14 10 14H14C17.3137 14 20 16.6863 20 20V21">
+						<animate fill="freeze" attributeName="stroke-dashoffset" dur="0.4s" values="28;0" />
+					</path>
+					<path d="M12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7C16 9.20914 14.2091 11 12 11Z">
+						<animate fill="freeze" attributeName="stroke-dashoffset" begin="0.5s" dur="0.4s" values="28;0" />
+					</path>
+				</g>
+			</svg>
+			<span class="profile-text">Клиент</span>
+		</a>
+	</div>
+</header>
+</body>
+</html>

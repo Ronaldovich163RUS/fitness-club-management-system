@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Админ: уведомления</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/admin}">
+	<div th:replace="~{fragments/admin-header :: admin-header('notifications')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Внутренние уведомления</h1>
+
+		<div class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Отправить уведомление</div>
+			<form id="notificationForm" novalidate>
+				<div class="admin-form-grid">
+					<div>
+						<label for="recipient_type" style="display:block;margin-bottom:8px;font-weight:900;">Роль получателя</label>
+						<select id="recipient_type" class="field" required>
+							<option value="client">Клиент</option>
+							<option value="trainer">Тренер</option>
+						</select>
+					</div>
+					<div>
+						<label for="recipient_id" style="display:block;margin-bottom:8px;font-weight:900;">Получатель</label>
+						<select id="recipient_id" class="field">
+							<option value="">Все клиенты</option>
+						</select>
+					</div>
+					<div class="span-2">
+						<label for="notification_title" style="display:block;margin-bottom:8px;font-weight:900;">Заголовок</label>
+						<input id="notification_title" class="field" type="text" required maxlength="200" placeholder="Краткий заголовок" />
+					</div>
+					<div class="span-2">
+						<label for="notification_message" style="display:block;margin-bottom:8px;font-weight:900;">Текст сообщения</label>
+						<textarea id="notification_message" class="field" rows="4" required placeholder="Текст уведомления" style="resize: vertical;"></textarea>
+					</div>
+				</div>
+				<div class="admin-actions" style="margin-top: 14px;">
+					<button id="btn-send-notification" type="submit" class="admin-btn primary">Отправить</button>
+				</div>
+				<div id="notificationFormError" class="admin-alert admin-alert--error" style="display:none;margin-top:12px;" role="alert"></div>
+			</form>
+		</div>
+
+		<div class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Отправленные уведомления</div>
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Уведомления">
+					<thead>
+						<tr>
+							<th>Роль</th>
+							<th>Получатель</th>
+							<th>Заголовок</th>
+							<th>Текст сообщения</th>
+							<th>Дата и время</th>
+						</tr>
+					</thead>
+					<tbody id="notifications-tbody"></tbody>
+				</table>
+			</div>
+		</div>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/admin-notifications.js" th:src="@{/js/admin-notifications.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>

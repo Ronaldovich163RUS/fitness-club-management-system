@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Клиент — персональные тренировки</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+	<link rel="stylesheet" href="/css/client-personal-training.css" th:href="@{/css/client-personal-training.css}">
+</head>
+<body th:attr="data-api-base=@{/api/client}">
+	<div th:replace="~{fragments/client-header :: client-header('personal')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Запись на персональные тренировки</h1>
+
+		<section class="card personal-fixed-card personal-filters-card" style="padding: 20px; margin-bottom: 24px;">
+			<div class="section-title" style="margin-bottom: 12px;">Фильтры для поиска слотов</div>
+			<div class="personal-filters-body">
+				<div class="admin-form-grid">
+					<div class="admin-field">
+						<label for="filter-date-from">Дата с</label>
+						<input id="filter-date-from" class="field" type="date">
+					</div>
+					<div class="admin-field">
+						<label for="filter-date-to">Дата по</label>
+						<input id="filter-date-to" class="field" type="date">
+					</div>
+					<div class="admin-field">
+						<label for="filter-time-from">Время с</label>
+						<input id="filter-time-from" class="field" type="time">
+					</div>
+					<div class="admin-field">
+						<label for="filter-time-to">Время по</label>
+						<input id="filter-time-to" class="field" type="time">
+					</div>
+					<div class="admin-field">
+						<label for="filter-trainer-id">Тренер</label>
+						<select id="filter-trainer-id" class="field"></select>
+					</div>
+					<div class="admin-field">
+						<label for="filter-zone-id">Зона</label>
+						<select id="filter-zone-id" class="field"></select>
+					</div>
+				</div>
+			</div>
+			<div class="personal-filters-actions">
+				<button type="button" id="btn-search-slots" class="admin-btn primary">Показать доступные слоты</button>
+				<button type="button" id="btn-reset-filters" class="admin-btn secondary">Сбросить фильтры</button>
+			</div>
+		</section>
+
+		<section class="card personal-fixed-card personal-slots-card personal-table-card" style="margin-bottom: 24px;" id="slots-section">
+			<div class="section-title">Доступные слоты</div>
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Доступные слоты для записи">
+					<thead>
+						<tr>
+							<th>Дата/время</th>
+							<th>Тренер</th>
+							<th>Специализация</th>
+							<th>Зал</th>
+							<th>Зона</th>
+							<th>Места</th>
+							<th>Действие</th>
+						</tr>
+					</thead>
+					<tbody id="available-slots-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+
+		<section class="card personal-fixed-card personal-registrations-card personal-table-card">
+			<div class="section-title">Мои активные записи</div>
+			<div class="admin-table-wrap">
+				<table class="admin-table" aria-label="Мои записи на персональные тренировки">
+					<thead>
+						<tr>
+							<th>Дата/время занятия</th>
+							<th>Тренер</th>
+							<th>Зал</th>
+							<th>Зона</th>
+							<th>Время записи</th>
+							<th>Действие</th>
+						</tr>
+					</thead>
+					<tbody id="my-registrations-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/client-personal-training.js" th:src="@{/js/client-personal-training.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>

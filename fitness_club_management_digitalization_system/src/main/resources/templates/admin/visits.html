@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Админ: посещения и услуги</title>
+	<link rel="stylesheet" href="/css/base.css" th:href="@{/css/base.css}">
+	<link rel="stylesheet" href="/css/admin.css" th:href="@{/css/admin.css}">
+</head>
+
+<body th:attr="data-api-base=@{/api/admin}">
+	<div th:replace="~{fragments/admin-header :: admin-header('visits')}"></div>
+
+	<main class="container admin-page">
+		<h1 class="page-title" style="margin-top: 34px;">Посещения и услуги</h1>
+
+		<section class="card" style="padding: 20px; margin-bottom: 26px;">
+			<div class="section-title" style="margin: 0 0 12px;">Действия с посещениями</div>
+			<div class="admin-actions" style="justify-content:flex-start;">
+				<button id="btn-open-entry-modal" type="button" class="admin-btn primary">Вход клиента в клуб</button>
+				<button id="btn-open-services-modal" type="button" class="admin-btn secondary">Доступные услуги</button>
+				<button id="btn-open-exit-modal" type="button" class="admin-btn secondary">Завершение посещения (выход)</button>
+			</div>
+			<div class="admin-small" style="margin-top: 14px;">Сейчас в клубе: <strong id="club-stats-count">0</strong> чел.</div>
+			<div id="visits-page-alert" class="admin-alert admin-alert--error" style="display: none; margin-top: 14px;" role="alert" aria-live="polite"></div>
+		</section>
+
+		<!-- 4. Журнал посещений -->
+		<section class="card" style="padding: 20px;">
+			<div class="section-title" style="margin: 0 0 10px;">Журнал посещений клиентов</div>
+			<div class="admin-table-wrap admin-table-wrap--sticky-head">
+				<table class="admin-table" aria-label="Журнал посещений">
+					<thead>
+						<tr>
+							<th>ФИО клиента</th>
+							<th>Время входа</th>
+							<th>Время выхода</th>
+							<th>Тип визита</th>
+						</tr>
+					</thead>
+					<tbody id="visits-journal-tbody"></tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+	<div id="visits-modal-root" class="admin-modal-overlay" hidden aria-hidden="true">
+		<div class="admin-modal-backdrop" data-visits-modal-dismiss="1" aria-hidden="true"></div>
+		<div class="admin-modal-stack">
+			<div id="modal-entry" class="admin-modal" role="dialog" hidden aria-labelledby="modal-entry-title">
+				<div class="admin-modal-header">
+					<h2 id="modal-entry-title" class="admin-modal-title">Вход клиента в клуб</h2>
+					<button type="button" class="admin-modal-close" data-visits-modal-dismiss="1" aria-label="Закрыть">×</button>
+				</div>
+				<div id="entry-modal-alert" class="admin-alert admin-alert--error" style="display: none; margin: 0 0 14px;" role="alert" aria-live="polite"></div>
+				<p class="admin-small" style="margin: 0 0 14px;">Идентификация клиента, выбор типа визита (обычный / с гостем), проверка активного абонемента и гостевых визитов.</p>
+				<form id="entryForm" novalidate>
+					<div class="admin-form-grid">
+						<div>
+							<label for="entry-client" style="display:block;margin-bottom:8px;font-weight:900;">Клиент</label>
+							<select id="entry-client" class="field" required>
+								<option value="">— Выберите клиента —</option>
+							</select>
+						</div>
+						<div>
+							<label style="display:block;margin-bottom:8px;font-weight:900;">Тип визита</label>
+							<div class="admin-checkboxes">
+								<label><input type="radio" name="visit_type" value="обычный" checked /> Обычный (один)</label>
+								<label><input type="radio" name="visit_type" value="гостевой" /> Гостевой (с гостем)</label>
+							</div>
+						</div>
+					</div>
+					<div class="admin-actions" style="margin-top: 14px;">
+						<button id="btn-entry" type="submit" class="admin-btn primary">Войти в клуб</button>
+					</div>
+				</form>
+			</div>
+
+			<div id="modal-services" class="admin-modal admin-modal--wide" role="dialog" hidden aria-labelledby="modal-services-title">
+				<div class="admin-modal-header">
+					<h2 id="modal-services-title" class="admin-modal-title">Доступные услуги</h2>
+					<button type="button" class="admin-modal-close" data-visits-modal-dismiss="1" aria-label="Закрыть">×</button>
+				</div>
+				<div id="services-modal-alert" class="admin-alert admin-alert--error" style="display: none; margin: 0 0 14px;" role="alert" aria-live="polite"></div>
+				<p class="admin-small" style="margin: 0 0 14px;">Услуги по абонементу и разовые покупки для клиента, находящегося в клубе. Выберите услугу и зафиксируйте использование.</p>
+				<div class="admin-field" style="margin-bottom: 14px;">
+					<label for="services-client">Клиент в клубе (с открытым визитом)</label>
+					<select id="services-client" class="field">
+						<option value="">— Выберите клиента —</option>
+					</select>
+				</div>
+				<div id="available-services-placeholder" class="muted" style="padding: 14px;">Выберите клиента с открытым визитом или выполните вход выше.</div>
+				<div id="available-services-list" style="display: none;">
+					<table class="admin-table" aria-label="Доступные услуги">
+						<thead>
+							<tr>
+								<th>Источник</th>
+								<th>Услуга</th>
+								<th>Тип</th>
+								<th>Детали</th>
+								<th>Действие</th>
+							</tr>
+						</thead>
+						<tbody id="available-services-tbody"></tbody>
+					</table>
+				</div>
+			</div>
+
+			<div id="modal-exit" class="admin-modal" role="dialog" hidden aria-labelledby="modal-exit-title">
+				<div class="admin-modal-header">
+					<h2 id="modal-exit-title" class="admin-modal-title">Завершение посещения (выход)</h2>
+					<button type="button" class="admin-modal-close" data-visits-modal-dismiss="1" aria-label="Закрыть">×</button>
+				</div>
+				<div id="exit-modal-alert" class="admin-alert admin-alert--error" style="display: none; margin: 0 0 14px;" role="alert" aria-live="polite"></div>
+				<div class="admin-field" style="margin-bottom: 14px;">
+					<label for="exit-client">Клиент с открытым визитом</label>
+					<select id="exit-client" class="field">
+						<option value="">— Выберите клиента —</option>
+					</select>
+				</div>
+				<div class="admin-actions">
+					<button id="btn-exit" type="button" class="admin-btn primary">Зафиксировать выход</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="/js/club-datetime.js" th:src="@{/js/club-datetime.js}"></script>
+	<script src="/js/admin-visits.js" th:src="@{/js/admin-visits.js}"></script>
+	<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+
+</html>
